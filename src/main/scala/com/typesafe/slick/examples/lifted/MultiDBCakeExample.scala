@@ -36,6 +36,7 @@ trait UserComponent { this: Profile with PictureComponent => //requires Profile 
     def id = column[Option[Int]]("USER_ID", O.PrimaryKey, O.AutoInc)
     def name = column[String]("USER_NAME", O.NotNull)
     def pictureId = column[Int]("PIC_ID", O.NotNull)
+    def pictureKey = foreignKey("FK_USER_PICTURE", pictureId, pictures)(_.id.get)
     def * = (name, pictureId, id)
   }
   val users = TableQuery[Users]
